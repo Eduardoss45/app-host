@@ -1,0 +1,9 @@
+.teste {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+img {
+    width: 50px;
+    border-radius: 100rem;
+}

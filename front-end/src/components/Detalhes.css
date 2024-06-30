@@ -1,0 +1,19 @@
+.anuncio {
+  position: relative;
+}
+
+.anuncio img {
+  width: 25vw;
+  height: 20vw;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.anuncio span {
+  position: absolute;
+  left: 20px;
+  top: 15px;
+  background-color: #ffffff90;
+  padding: 0.25rem 1rem;
+  border-radius: .6rem;
+}

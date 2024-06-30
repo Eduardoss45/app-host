@@ -1,8 +1,9 @@
-import Anuncio from "../image/anuncio.jpg"
+import React from "react";
+import Detalhes from "./Detalhes";
 
 import "./Acomodacoes.css";
 
-const Main = () => {
+const Main = ({ accommodations }) => {
   return (
     <>
       <div id="filtros">
@@ -23,114 +24,16 @@ const Main = () => {
         </div>
       </div>
       <div id="area-anuncio">
-        <div className="anuncio">
-            <div className="img-anuncio">
-                <img src={Anuncio} alt="Imagem da acomodação" />
-                <span>Status</span>
-            </div>
-            <p><strong>Nome do lugar</strong></p>
-            <p>Descrição do lugar</p>
-            <p><strong>R$0</strong> Preço por hospede</p>
-        </div>
-        <div className="anuncio">
-            <div className="img-anuncio">
-                <img src={Anuncio} alt="Imagem da acomodação" />
-                <span>Status</span>
-            </div>
-            <p><strong>Nome do lugar</strong></p>
-            <p>Descrição do lugar</p>
-            <p><strong>R$0</strong> Preço por hospede</p>
-        </div>
-        <div className="anuncio">
-            <div className="img-anuncio">
-                <img src={Anuncio} alt="Imagem da acomodação" />
-                <span>Status</span>
-            </div>
-            <p><strong>Nome do lugar</strong></p>
-            <p>Descrição do lugar</p>
-            <p><strong>R$0</strong> Preço por hospede</p>
-        </div>
-        <div className="anuncio">
-            <div className="img-anuncio">
-                <img src={Anuncio} alt="Imagem da acomodação" />
-                <span>Status</span>
-            </div>
-            <p><strong>Nome do lugar</strong></p>
-            <p>Descrição do lugar</p>
-            <p><strong>R$0</strong> Preço por hospede</p>
-        </div>
-        <div className="anuncio">
-            <div className="img-anuncio">
-                <img src={Anuncio} alt="Imagem da acomodação" />
-                <span>Status</span>
-            </div>
-            <p><strong>Nome do lugar</strong></p>
-            <p>Descrição do lugar</p>
-            <p><strong>R$0</strong> Preço por hospede</p>
-        </div>
-        <div className="anuncio">
-            <div className="img-anuncio">
-                <img src={Anuncio} alt="Imagem da acomodação" />
-                <span>Status</span>
-            </div>
-            <p><strong>Nome do lugar</strong></p>
-            <p>Descrição do lugar</p>
-            <p><strong>R$0</strong> Preço por hospede</p>
-        </div>
-        <div className="anuncio">
-            <div className="img-anuncio">
-                <img src={Anuncio} alt="Imagem da acomodação" />
-                <span>Status</span>
-            </div>
-            <p><strong>Nome do lugar</strong></p>
-            <p>Descrição do lugar</p>
-            <p><strong>R$0</strong> Preço por hospede</p>
-        </div>
-        <div className="anuncio">
-            <div className="img-anuncio">
-                <img src={Anuncio} alt="Imagem da acomodação" />
-                <span>Status</span>
-            </div>
-            <p><strong>Nome do lugar</strong></p>
-            <p>Descrição do lugar</p>
-            <p><strong>R$0</strong> Preço por hospede</p>
-        </div>
-        <div className="anuncio">
-            <div className="img-anuncio">
-                <img src={Anuncio} alt="Imagem da acomodação" />
-                <span>Status</span>
-            </div>
-            <p><strong>Nome do lugar</strong></p>
-            <p>Descrição do lugar</p>
-            <p><strong>R$0</strong> Preço por hospede</p>
-        </div>
-        <div className="anuncio">
-            <div className="img-anuncio">
-                <img src={Anuncio} alt="Imagem da acomodação" />
-                <span>Status</span>
-            </div>
-            <p><strong>Nome do lugar</strong></p>
-            <p>Descrição do lugar</p>
-            <p><strong>R$0</strong> Preço por hospede</p>
-        </div>
-        <div className="anuncio">
-            <div className="img-anuncio">
-                <img src={Anuncio} alt="Imagem da acomodação" />
-                <span>Status</span>
-            </div>
-            <p><strong>Nome do lugar</strong></p>
-            <p>Descrição do lugar</p>
-            <p><strong>R$0</strong> Preço por hospede</p>
-        </div>
-        <div className="anuncio">
-            <div className="img-anuncio">
-                <img src={Anuncio} alt="Imagem da acomodação" />
-                <span>Status</span>
-            </div>
-            <p><strong>Nome do lugar</strong></p>
-            <p>Descrição do lugar</p>
-            <p><strong>R$0</strong> Preço por hospede</p>
-        </div>
+        {accommodations.map((item, index) => (
+          <Detalhes
+            key={index}
+            image={item.image}
+            status={item.status}
+            name={item.name}
+            description={item.description}
+            price={item.price}
+          />
+        ))}
       </div>
     </>
   );

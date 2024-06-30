@@ -1,6 +1,6 @@
-import TesteDaApi from "./components/TesteDaApi";
+// import TesteDaApi from "./components/TesteDaApi";
 // import Chat from "./pages/Chat";
-// import Acomodacoes from "./components/Acomodacoes";
+import Acomodacoes from "./components/Acomodacoes";
 
 import useData from "./hooks/useData";
 import Navbar from "./components/Navbar";
@@ -9,6 +9,7 @@ import "./App.css";
 
 function App() {
   const { data, loading, error } = useData("http://localhost:8000/api/");
+  const accommodations = data && data.accommodations ? data.accommodations : [];
 
   return (
     <div className="App">
@@ -18,9 +19,9 @@ function App() {
         <>Erro ao buscar dados: {error.message}</>
       ) : (
         <>
-          <TesteDaApi data={data} />
+          {/* <TesteDaApi data={data} /> */}
           {/* <Chat /> */}
-          {/* <Acomodacoes /> */}
+          <Acomodacoes accommodations={accommodations} />
         </>
       )}
     </div>

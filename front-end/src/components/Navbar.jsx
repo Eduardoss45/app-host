@@ -1,12 +1,14 @@
-import { CiMenuBurger, CiSearch } from "react-icons/ci";
+import { CiMenuBurger } from "react-icons/ci";
 import { FaUserCircle, FaHotel } from "react-icons/fa";
 import { MdHotel } from "react-icons/md";
+
+import SearchBar from "./SearchBar";
 
 import logo from "../image/logo.png";
 
 import "./Navbar.css";
 
-const Navbar = () => {
+const Navbar = ({ onSearch }) => {
   return (
     <header>
       <div id="top-row">
@@ -37,21 +39,7 @@ const Navbar = () => {
         </nav>
       </div>
       <div id="bottom-row">
-        <div id="barra">
-          <span>
-            <CiSearch />
-          </span>
-          <nav id="search-bar">
-            <span>Destino</span>
-            <label>
-              <input
-                id="search-bar-input"
-                type="text"
-                placeholder="Localização"
-              />
-            </label>
-          </nav>
-        </div>
+        <SearchBar onSearch={onSearch} />
       </div>
     </header>
   );

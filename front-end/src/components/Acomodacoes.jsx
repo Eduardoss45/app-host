@@ -1,30 +1,27 @@
-import React from "react";
+import { useState } from "react";
 import Detalhes from "./Detalhes";
+import Filter from "./Filter";
 
 import "./Acomodacoes.css";
 
-const Main = ({ accommodations }) => {
+const Acomodacoes = ({ accommodations }) => {
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const handleFilterClick = (category) => {
+    setSelectedCategory(category);
+  };
+
+  const filteredAccommodations = selectedCategory
+  ?  accommodations.filter((item) => item.category === selectedCategory)
+  : accommodations;
+
   return (
     <>
       <div id="filtros">
-        <div>
-          <button className="opt-filtros">Pousada</button>
-        </div>
-        <div>
-          <button className="opt-filtros">Chalé</button>
-        </div>
-        <div>
-          <button className="opt-filtros">Apto</button>
-        </div>
-        <div>
-          <button className="opt-filtros">Casa</button>
-        </div>
-        <div>
-          <button className="opt-filtros">Quarto</button>
-        </div>
+        <Filter onFilterClick={handleFilterClick} />
       </div>
       <div id="area-anuncio">
-        {accommodations.map((item, index) => (
+        {filteredAccommodations.map((item, index) => (
           <Detalhes
             key={index}
             image={item.image}
@@ -32,6 +29,7 @@ const Main = ({ accommodations }) => {
             name={item.name}
             description={item.description}
             price={item.price}
+            category={item.category}
           />
         ))}
       </div>
@@ -39,4 +37,4 @@ const Main = ({ accommodations }) => {
   );
 };
 
-export default Main;
+export default Acomodacoes;

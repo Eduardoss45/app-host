@@ -1,6 +1,6 @@
 import "./Detalhes.css";
 
-const Detalhes = ({ image, status, name, description, price }) => {
+const Detalhes = ({ image, status, name, description, price, category }) => {
   return (
     <div className="anuncio">
       <div className="img-anuncio">
@@ -14,6 +14,7 @@ const Detalhes = ({ image, status, name, description, price }) => {
         <strong>{name}</strong>
       </p>
       <p>{description}</p>
+      <p>{category}</p>
       <p>
         <strong>R${price}</strong> Preço por hospede
       </p>

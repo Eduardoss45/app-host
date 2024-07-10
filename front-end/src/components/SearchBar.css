@@ -34,7 +34,7 @@
   border: none;
 }
 
-input::placeholder {
+#search-bar-input::placeholder {
   color: #ffffff;
   font-size: 1rem;
 }

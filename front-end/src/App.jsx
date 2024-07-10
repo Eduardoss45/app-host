@@ -1,9 +1,8 @@
-import { IoMdClose } from "react-icons/io";
-
 // import TesteDaApi from "./components/TesteDaApi";
 // import Chat from "./pages/Chat";
 import Acomodacoes from "./components/Acomodacoes";
 import Navbar from "./components/Navbar";
+import PainelFlutuanteLogin from "./components/PainelFlutuanteLogin";
 
 import { useState } from "react";
 import useData from "./hooks/useData";
@@ -36,36 +35,7 @@ function App() {
           {/* <TesteDaApi data={data} /> */}
           {/* <Chat /> */}
           <Acomodacoes accommodations={filteredAccommodations} />
-          {/* <div id="painel-flutuante">
-            <div id="painel-login">
-              <p>
-                <span>
-                  <IoMdClose />
-                  Entrar ou Cadastrar-se
-                </span>
-                <div>
-                  <h1>Bem vindo ao App Host</h1>
-                  <input type="email" name="Email" />
-                  <input type="password" name="Senha" />
-                </div>
-              </p>
-            </div>
-            <div id="painel-mensagens">
-              <h1>Painel flutuante</h1>
-              <span>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste
-                perferendis nam suscipit dolorem vero beatae doloremque corrupti
-                repellendus ut, qui consequuntur porro ipsa neque inventore
-                aliquam obcaecati architecto eligendi repudiandae.
-              </span>
-              <div id="box-text">
-                <span>texto</span>
-              </div>
-              <div id="box-button">
-                <button id="btn-painel">Texto</button>
-              </div>
-            </div>
-          </div> */}
+          {/* <PainelFlutuanteLogin /> */}
         </>
       )}
     </div>

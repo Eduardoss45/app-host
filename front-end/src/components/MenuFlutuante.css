@@ -1,0 +1,25 @@
+#menu-flutuante {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: -150%;
+  background-color: var(--cor-branco);
+  padding: 0.4rem;
+  border-radius: 10px;
+}
+
+#menu-flutuante a {
+  text-decoration: none;
+  color: black;
+}
+
+#menu-flutuante a:visited {
+  color: black;
+}
+
+#menu-line {
+  border-bottom: 1px solid black;
+  width: 119%;
+  left: -6px;
+  position: relative;
+}

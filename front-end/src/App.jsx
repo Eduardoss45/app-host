@@ -1,16 +1,16 @@
-// import TesteDaApi from "./components/TesteDaApi";
-// import Chat from "./pages/Chat";
-import Acomodacoes from "./components/Acomodacoes";
+import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
-import PainelFlutuanteLogin from "./components/PainelFlutuanteLogin";
+import Cadastro from "./pages/Cadastro";
+import Favoritos from "./pages/Favoritos";
+import Reservas from "./pages/Reservas";
+import Acomodacao from "./pages/Acomodacao";
 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import useData from "./hooks/useData";
 
-import "./App.css";
-
 function App() {
-  const { data, loading, error } = useData("http://localhost:8000/api/");
+  const { data, loading, error } = useData("http://localhost:8000/");
   const accommodations = data && data.accommodations ? data.accommodations : [];
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -26,18 +26,25 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar onSearch={handleSearch} />
-      {loading && <>Carregando...</>}
-      {error ? (
-        <>Erro ao buscar dados: {error.message}</>
-      ) : (
-        <>
-          {/* <TesteDaApi data={data} /> */}
-          {/* <Chat /> */}
-          <Acomodacoes accommodations={filteredAccommodations} />
-          {/* <PainelFlutuanteLogin /> */}
-        </>
-      )}
+      <BrowserRouter>
+        <Navbar onSearch={handleSearch} />
+        {loading ? (
+          <>Carregando...</>
+        ) : error ? (
+          <>Erro ao buscar dados: {error.message}</>
+        ) : (
+          <Routes>
+            <Route
+              path="/"
+              element={<Home accommodations={filteredAccommodations} />}
+            />
+            <Route path="/cadastro" element={<Cadastro />} />
+            <Route path="/favoritos" element={<Favoritos />} />
+            <Route path="/reservas" element={<Reservas />} />
+            <Route path="/acomodacoes" element={<Acomodacao />} />
+          </Routes>
+        )}
+      </BrowserRouter>
     </div>
   );
 }

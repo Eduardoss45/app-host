@@ -17,6 +17,13 @@
   color: black;
 }
 
+#menu-flutuante button {
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  color: black;
+}
+
 #menu-line {
   border-bottom: 1px solid black;
   width: 119%;

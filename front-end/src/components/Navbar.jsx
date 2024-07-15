@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
-import { CiMenuBurger } from "react-icons/ci";
-import { FaUserCircle, FaHotel } from "react-icons/fa";
-import { MdHotel } from "react-icons/md";
-
 import SearchBar from "./SearchBar";
 import MenuFlutuante from "./MenuFlutuante";
 import PainelFlutuanteLogin from "./PainelFlutuanteLogin";
+
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { CiMenuBurger } from "react-icons/ci";
+import { FaUserCircle, FaHotel } from "react-icons/fa";
+import { MdHotel } from "react-icons/md";
 
 import logo from "../image/logo.png";
 
@@ -14,9 +15,7 @@ import "./Navbar.css";
 const Navbar = ({ onSearch }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isLoginPainelVisible, setIsLoginPainelVisible] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    !!localStorage.getItem("token")
-  );
+  const [isSearchbarVisible, setIsSearchbarVisible] = useState(true);
 
   const toggleMenu = () => {
     setIsMenuVisible((prev) => !prev);
@@ -25,26 +24,37 @@ const Navbar = ({ onSearch }) => {
   const handleLoginClick = () => {
     setIsLoginPainelVisible(true);
     setIsMenuVisible(false);
+    setIsSearchbarVisible(true);
   };
 
+  const handleCadastroClick = () => {
+    setIsLoginPainelVisible(false);
+    setIsMenuVisible(false);
+    setIsSearchbarVisible(false);
+  };
+  
   const closeLoginPainel = () => {
     setIsLoginPainelVisible(false);
+    setIsSearchbarVisible(true);
   };
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsAuthenticated(false);
-  };
-
-  const onLoginSuccess = () => {
-    setIsAuthenticated(true);
-  };
+  
+  const openCadastro = () => {
+    setIsSearchbarVisible(false);
+    setIsLoginPainelVisible(false);
+  }
+  
+  const resetPage = () => {
+    setIsSearchbarVisible(true);
+    setIsLoginPainelVisible(false);
+  }
 
   return (
     <>
       <header>
         <div id="top-row">
-          <img id="logo" src={logo} alt="logo da apphost" />
+          <Link to="/" onClick={resetPage}>
+            <img id="logo" src={logo} alt="logo da apphost" />
+          </Link>
           <nav id="nav-btn">
             <button className="btn navegacao">
               <span>
@@ -68,21 +78,26 @@ const Navbar = ({ onSearch }) => {
                 </span>
               </button>
               {isMenuVisible && (
-                <MenuFlutuante onLoginClick={handleLoginClick} />
+                <MenuFlutuante
+                  onLoginClick={handleLoginClick}
+                  onCadastroClick={handleCadastroClick}
+                />
               )}
             </div>
           </nav>
         </div>
-        <div id="bottom-row">
-          <SearchBar onSearch={onSearch} />
-        </div>
+        {isSearchbarVisible && (
+          <div id="bottom-row">
+            <SearchBar onSearch={onSearch} />
+          </div>
+        )}
       </header>
       {isLoginPainelVisible && (
         <>
           <div className="backdrop" onClick={closeLoginPainel}></div>
           <PainelFlutuanteLogin
             closeLoginPainel={closeLoginPainel}
-            onLoginSuccess={onLoginSuccess}
+            openCadastro={openCadastro}
           />
         </>
       )}

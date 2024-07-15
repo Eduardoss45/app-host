@@ -1,143 +1,167 @@
-from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .models import User, Accommodation
-from .serializers import UserSerializer, AccommodationSerializer
 
-@api_view(['GET'])
-def api_root(request):
-    """
-    Endpoint para retornar todos os dados da API.
-    """
-    if request.method == 'GET':
-        users = User.objects.all()
-        accommodations = Accommodation.objects.all()
+from .models import User
+from .serializers import UserSerializer
 
-        user_serializer = UserSerializer(users, many=True)
-        accommodation_serializer = AccommodationSerializer(
-            accommodations, many=True)
+import json
 
-        data = {
-            'users': user_serializer.data,
-            'accommodations': accommodation_serializer.data
-        }
-        return Response(data)
+from . import funcoes as fn
+
 
 
 @api_view(['GET'])
 def get_users(request):
-    """Endpoint para obter a lista de usuários."""
+
     if request.method == 'GET':
-        users = User.objects.all()
-        serializer = UserSerializer(users, many=True)
-        return Response(serializer.data)
+
+        users = User.objects.all()                          # Get all objects in User's database (It returns a queryset)
+
+        serializer = UserSerializer(users, many=True)       # Serialize the object data into json (Has a 'many' parameter cause it's a queryset)
+
+        return Response(serializer.data)                    # Return the serialized data
+    
     return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
 
 @api_view(['GET', 'PUT'])
-def get_by_id(request, id):
-    """Endpoint para obter ou atualizar um usuário pelo ID."""
+def get_by_nick(request, nick):
+
     try:
-        user = User.objects.get(id=id)
-    except ObjectDoesNotExist:
+        user = User.objects.get(pk=nick)
+    except:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
+
         serializer = UserSerializer(user)
         return Response(serializer.data)
-    elif request.method == 'PUT':
+
+    if request.method == 'PUT':
+
         serializer = UserSerializer(user, data=request.data)
+
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-@api_view(['GET', 'POST', 'PUT', 'DELETE'])
-def user_manager(request):
-    """API para gerenciar usuários."""
-    if request.method == 'GET':
-        user_id = request.GET.get('id')
-        if user_id:
-            try:
-                user = User.objects.get(id=user_id)
-                serializer = UserSerializer(user)
-                return Response(serializer.data)
-            except ObjectDoesNotExist:
-                return Response(status=status.HTTP_404_NOT_FOUND)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'POST':
-        serializer = UserSerializer(data=request.data)
+
+
+
+# CRUDZAO DA MASSA
+@api_view(['GET','POST','PUT','DELETE'])
+def user_manager(request):
+
+# ACESSOS
+
+    if request.method == 'GET':
+
+        try:
+            if request.GET['user']:                         # Check if there is a get parameter called 'user' (/?user=xxxx&...)
+
+                user_nickname = request.GET['user']         # Find get parameter
+
+                try:
+                    user = User.objects.get(pk=user_nickname)   # Get the object in database
+                except:
+                    return Response(status=status.HTTP_404_NOT_FOUND)
+
+                serializer = UserSerializer(user)           # Serialize the object data into json
+                return Response(serializer.data)            # Return the serialized data
+
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+            
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    
+
+# CRIANDO DADOS
+
+    if request.method == 'POST':
+
+        new_user = request.data
+        
+        serializer = UserSerializer(data=new_user)
+
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'PUT':
-        user_id = request.data.get('id')
-        if not user_id:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+
+# EDITAR DADOS (PUT)
+
+    if request.method == 'PUT':
+
+        nickname = request.data['user_nickname']
+
         try:
-            updated_user = User.objects.get(id=user_id)
-            serializer = UserSerializer(updated_user, data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except ObjectDoesNotExist:
+            updated_user = User.objects.get(pk=nickname)
+        except:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-    elif request.method == 'DELETE':
-        user_id = request.data.get('id')
-        if not user_id:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+        
+        print('Resultado final ', fn.soma(1,2))
+
+        serializer = UserSerializer(updated_user, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+# DELETAR DADOS (DELETE)
+
+    if request.method == 'DELETE':
+
         try:
-            user = User.objects.get(id=user_id)
-            user.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        except ObjectDoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-    return Response(status=status.HTTP_400_BAD_REQUEST)
+            user_to_delete = User.objects.get(pk=request.data['user_nickname'])
+            user_to_delete.delete()
+            return Response(status=status.HTTP_202_ACCEPTED)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'POST'])
-def accommodation_list(request):
-    if request.method == 'GET':
-        accommodations = Accommodation.objects.all()
-        serializer = AccommodationSerializer(accommodations, many=True)
-        return Response(serializer.data)
-
-    elif request.method == 'POST':
-        serializer = AccommodationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def accommodation_detail(request, pk):
-    try:
-        accommodation = Accommodation.objects.get(pk=pk)
-    except Accommodation.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET':
-        serializer = AccommodationSerializer(accommodation)
-        return Response(serializer.data)
 
-    elif request.method == 'PUT':
-        serializer = AccommodationSerializer(accommodation, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
-        accommodation.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
-    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+
+
+
+# def databaseEmDjango():
+
+#     data = User.objects.get(pk='gabriel_nick')          # OBJETO
+
+#     data = User.objects.filter(user_age='25')           # QUERYSET
+
+#     data = User.objects.exclude(user_age='25')          # QUERYSET
+
+#     data.save()
+
+#     data.delete()
+
+

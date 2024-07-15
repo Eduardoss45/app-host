@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
@@ -5,7 +6,7 @@ import { IoMdClose } from "react-icons/io";
 
 import "./PainelFlutuanteLogin.css";
 
-const PainelFlutuanteLogin = ({ closeLoginPainel, onLoginSuccess }) => {
+const PainelFlutuanteLogin = ({ closeLoginPainel, onLoginSuccess, openCadastro }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -51,10 +52,15 @@ const PainelFlutuanteLogin = ({ closeLoginPainel, onLoginSuccess }) => {
             />
           </div>
           <div>
-            <input id="btn-submit-login" type="submit" value="Log in" onClick={handleLogin} />
+            <input
+              id="btn-submit-login"
+              type="submit"
+              value="Log in"
+              onClick={handleLogin}
+            />
           </div>
           <p>
-            Não possui conta? <a href="#">Criar</a>
+            Não possui conta? <Link to="/cadastro" onClick={openCadastro}>Criar</Link>
           </p>
         </div>
       </div>

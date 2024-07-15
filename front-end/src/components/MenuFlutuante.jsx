@@ -1,13 +1,17 @@
+import { Link } from "react-router-dom";
+
 import "./MenuFlutuante.css";
 
-const MenuFlutuante = ({ onLoginClick }) => {
+const MenuFlutuante = ({ onLoginClick, onCadastroClick }) => {
   return (
     <div id="menu-flutuante">
-      <a href="#" onClick={onLoginClick}>
-        Entrar
-      </a>
+      <Link to="/">
+        <button onClick={onLoginClick}>Entrar</button>
+      </Link>
       <div id="menu-line"></div>
-      <a href="#">Cadastrar</a>
+      <Link to="/cadastro">
+        <button onClick={onCadastroClick}>Cadastrar</button>
+      </Link>
     </div>
   );
 };

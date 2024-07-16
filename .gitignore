@@ -1,0 +1,5 @@
+# Ignorar node_modules na pasta front-end
+/front-end/node_modules/
+
+# Ignorar venv na pasta back-end
+/back-end/venv/

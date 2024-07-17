@@ -1,7 +1,6 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from uuid import uuid4
-
-# Create your models here.
 
 
 def upload_image_accommodation(instance, filename):
@@ -17,3 +16,12 @@ class Accommodations(models.Model):
     image = models.ImageField(
         upload_to=upload_image_accommodation, null=True, blank=True
     )
+
+
+class User(AbstractUser):
+    id_user = models.AutoField(primary_key=True)
+    birth_date = models.DateField(null=True, blank=True)
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
+    username = models.CharField(max_length=150, unique=True)
+    email = models.EmailField(unique=True)
+    name = models.CharField(max_length=150, blank=True)

@@ -11,7 +11,7 @@ import useData from "./hooks/useData";
 
 function App() {
   const { data, loading, error } = useData(
-    "http://127.0.0.1:8000/"
+    "#"
   );
   const accommodations = data && data.accommodations ? data.accommodations : [];
   const [searchTerm, setSearchTerm] = useState("");

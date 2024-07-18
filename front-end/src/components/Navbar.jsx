@@ -1,7 +1,3 @@
-import SearchBar from "./SearchBar";
-import MenuFlutuante from "./MenuFlutuante";
-import PainelFlutuanteLogin from "./PainelFlutuanteLogin";
-
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { CiMenuBurger } from "react-icons/ci";
@@ -9,8 +5,11 @@ import { FaUserCircle, FaHotel } from "react-icons/fa";
 import { MdHotel } from "react-icons/md";
 
 import logo from "../image/logo.png";
-
 import "./Navbar.css";
+
+import MenuFlutuante from "./MenuFlutuante"; // Importe o componente
+import SearchBar from "./SearchBar"; // Importe o componente
+import PainelFlutuanteLogin from "./PainelFlutuanteLogin"; // Importe o componente
 
 const Navbar = ({ onSearch }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
@@ -32,21 +31,27 @@ const Navbar = ({ onSearch }) => {
     setIsMenuVisible(false);
     setIsSearchbarVisible(false);
   };
-  
+
   const closeLoginPainel = () => {
     setIsLoginPainelVisible(false);
     setIsSearchbarVisible(true);
   };
-  
+
   const openCadastro = () => {
     setIsSearchbarVisible(false);
     setIsLoginPainelVisible(false);
-  }
-  
+  };
+
   const resetPage = () => {
     setIsSearchbarVisible(true);
     setIsLoginPainelVisible(false);
-  }
+  };
+
+  // Função para lidar com o sucesso do login
+  const handleLoginSuccess = () => {
+    // Lógica para o que fazer após um login bem-sucedido
+    console.log("Login bem-sucedido!"); // Exemplo: exibir uma mensagem de sucesso
+  };
 
   return (
     <>
@@ -98,6 +103,7 @@ const Navbar = ({ onSearch }) => {
           <PainelFlutuanteLogin
             closeLoginPainel={closeLoginPainel}
             openCadastro={openCadastro}
+            onLoginSuccess={handleLoginSuccess} // Passando onLoginSuccess para PainelFlutuanteLogin
           />
         </>
       )}

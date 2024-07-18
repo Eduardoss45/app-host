@@ -6,7 +6,11 @@ import { IoMdClose } from "react-icons/io";
 
 import "./PainelFlutuanteLogin.css";
 
-const PainelFlutuanteLogin = ({ closeLoginPainel, onLoginSuccess, openCadastro }) => {
+const PainelFlutuanteLogin = ({
+  closeLoginPainel,
+  onLoginSuccess,
+  openCadastro,
+}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -14,17 +18,22 @@ const PainelFlutuanteLogin = ({ closeLoginPainel, onLoginSuccess, openCadastro }
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/api/token/", {
-        username: email,
+      const response = await axios.post("http://localhost:8000/token/", {
+        email: email,
         password: password,
       });
-      localStorage.setItem("token", response.data.token);
+
+      console.log("Response from /token/ endpoint:", response.data); // Exibir a resposta da API no console
+
+      localStorage.setItem("token", response.data.access); // Armazenar o token de acesso localmente
       onLoginSuccess();
       closeLoginPainel();
     } catch (err) {
+      console.error("Error during login request:", err); // Log de erro no console
       setError("Credenciais inválidas");
     }
   };
+
   return (
     <div id="painel-flutuante">
       <div id="painel-login">
@@ -60,7 +69,10 @@ const PainelFlutuanteLogin = ({ closeLoginPainel, onLoginSuccess, openCadastro }
             />
           </div>
           <p>
-            Não possui conta? <Link to="/cadastro" onClick={openCadastro}>Criar</Link>
+            Não possui conta?{" "}
+            <Link to="/cadastro" onClick={openCadastro}>
+              Criar
+            </Link>
           </p>
         </div>
       </div>

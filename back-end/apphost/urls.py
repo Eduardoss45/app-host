@@ -25,7 +25,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
 from apphost.api import viewsets as accommodationsviewsets
-from apphost.api.viewsets import UserCreate
+from apphost.api.viewsets import UserCreate, MyTokenObtainPairView
 
 
 route = routers.DefaultRouter()
@@ -38,7 +38,7 @@ route.register(
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("token/", TokenObtainPairView.as_view()),
+    path("token/", MyTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view()),
     path("register/", UserCreate.as_view(), name="user-register"),
     path("", include(route.urls)),

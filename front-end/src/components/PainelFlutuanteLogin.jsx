@@ -23,13 +23,12 @@ const PainelFlutuanteLogin = ({
         password: password,
       });
 
-      console.log("Response from /token/ endpoint:", response.data); // Exibir a resposta da API no console
-
-      localStorage.setItem("token", response.data.access); // Armazenar o token de acesso localmente
+      localStorage.setItem("token", response.data.access);
+      localStorage.setItem("refreshToken", response.data.refresh);
       onLoginSuccess();
       closeLoginPainel();
     } catch (err) {
-      console.error("Error during login request:", err); // Log de erro no console
+      console.error("Error during login request:", err);
       setError("Credenciais inválidas");
     }
   };

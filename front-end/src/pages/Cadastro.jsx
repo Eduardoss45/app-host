@@ -1,13 +1,34 @@
-import useCadastro from "../hooks/useCadastro"; // Importa o hook de cadastro
+import React, { useEffect } from "react";
+import useCadastro from "../hooks/useCadastro";
 import { Link } from "react-router-dom";
-
 import { FaArrowLeftLong } from "react-icons/fa6";
-
 import "./Cadastro.css";
 
 const Cadastro = ({ resetPage }) => {
+  const initialState = {
+    username: "",
+    birth_date: "",
+    telefone: "",
+    email: "",
+    password: "",
+  };
+
   const { formData, loading, error, success, handleChange, handleSubmit } =
     useCadastro("http://localhost:8000/register/");
+
+  const resetForm = () => {
+    handleChange({ target: { name: "username", value: "" } });
+    handleChange({ target: { name: "birth_date", value: "" } });
+    handleChange({ target: { name: "telefone", value: "" } });
+    handleChange({ target: { name: "email", value: "" } });
+    handleChange({ target: { name: "password", value: "" } });
+  };
+
+  useEffect(() => {
+    if (success) {
+      resetForm();
+    }
+  }, [success]); // Only re-run the effect if `success` changes
 
   return (
     <div id="page-row">
@@ -87,14 +108,13 @@ const Cadastro = ({ resetPage }) => {
               disabled={loading}
             />
           </div>
-          {error && (
-            <p className="error-message">
+          {error ? (
+            <p className="error message">
               Erro ao cadastrar o usuário: {error.message}
             </p>
-          )}
-          {success && (
-            <p className="success-message">Usuário cadastrado com sucesso!</p>
-          )}
+          ) : success ? (
+            <p className="success message">Usuário cadastrado com sucesso!</p>
+          ) : null}
         </form>
       </div>
     </div>

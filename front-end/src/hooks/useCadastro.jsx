@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 function useCadastro(url) {
@@ -23,6 +23,7 @@ function useCadastro(url) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
     try {
       const response = await axios.post(url, formData, {
         headers: {
@@ -38,6 +39,20 @@ function useCadastro(url) {
       setLoading(false);
     }
   };
+
+  React.useEffect(() => {
+    let timer;
+    if (success) {
+      timer = setTimeout(() => {
+        setSuccess(false);
+      }, 10000);
+    } else if (error) {
+      timer = setTimeout(() => {
+        setError(false);
+      }, 10000);
+    }
+    return () => clearTimeout(timer);
+  }, [success]);
 
   return { formData, loading, error, success, handleChange, handleSubmit };
 }

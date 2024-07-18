@@ -1,12 +1,12 @@
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework import generics, viewsets
+from .serializers import MyTokenObtainPairSerializer
+from rest_framework import generics, viewsets, permissions
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import (
     get_user_model,
 )
-
 from .serializers import (
     AccommodationsSerializer,
     UserSerializer,
@@ -29,10 +29,11 @@ class UserCreate(generics.CreateAPIView):
     permission_classes = (AllowAny,)
 
 
-from rest_framework_simplejwt.views import TokenObtainPairView
-from .serializers import MyTokenObtainPairSerializer
-from rest_framework.response import Response
-from rest_framework import status
+class UserUpdate(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    lookup_field = "id_user"
 
 
 class MyTokenObtainPairView(TokenObtainPairView):

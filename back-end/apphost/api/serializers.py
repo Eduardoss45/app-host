@@ -5,6 +5,7 @@ from data import models
 
 User = get_user_model()
 
+
 class AccommodationsSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -22,6 +23,9 @@ class UserSerializer(serializers.ModelSerializer):
             "phone_number",
             "email",
             "password",
+            "social_name",
+            "profile_picture",
+            "emergency_contact",
         ]
         extra_kwargs = {"password": {"write_only": True}}
 
@@ -37,6 +41,5 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         data["user"] = {
             "email": user.email,
             "id": user.id_user,
-            # Adicione outros campos do usuário que você deseja retornar com os tokens
         }
         return data

@@ -28,7 +28,6 @@ const PainelFlutuanteLogin = ({
       onLoginSuccess();
       closeLoginPainel();
     } catch (err) {
-      console.error("Error during login request:", err);
       setError("Credenciais inválidas");
     }
   };
@@ -42,7 +41,7 @@ const PainelFlutuanteLogin = ({
         </div>
         <div id="form-login">
           <h1>Bem-vindo ao App Host</h1>
-          {error && <p style={{ color: "red" }}>{error}</p>}
+          {error && <p className="error message">{error}</p>}
           <div>
             <input
               type="email"

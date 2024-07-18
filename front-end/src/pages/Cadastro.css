@@ -65,3 +65,17 @@
   font-size: 2rem;
   font-weight: 300;
 }
+
+.message {
+  text-align: center;
+  font-weight: 500;
+  padding: .5rem;
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  color: green;
+}

@@ -35,19 +35,23 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
+def upload_image_profile(instance, filename):
+    return f"profile_pictures/{instance.id_user}/{filename}"
+
+
 class User(AbstractUser):
-    id_user = models.AutoField(primary_key=True)
+    id_user = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     birth_date = models.DateField(null=True, blank=True)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
-    username = models.CharField(
-        max_length=150, unique=True
-    )  # Ainda mantém o campo username
+    username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True)
-    name = models.CharField(max_length=150, blank=True)
+    social_name = models.CharField(max_length=255, blank=True, null=True)
+    profile_picture = models.ImageField(
+        upload_to=upload_image_profile, blank=True, null=True
+    )
+    emergency_contact = models.CharField(max_length=150, null=True, blank=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []  # Não são necessários outros campos obrigatórios além do email
+    REQUIRED_FIELDS = []
 
-    objects = (
-        CustomUserManager()
-    )  # Substitui o UserManager padrão pelo CustomUserManager
+    objects = CustomUserManager()

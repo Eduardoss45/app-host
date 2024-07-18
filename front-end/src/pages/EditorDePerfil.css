@@ -29,7 +29,7 @@
 }
 
 #page-col-perfil input {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   font-size: 1rem;
   width: 800px;
   border: none;
@@ -42,6 +42,7 @@
   margin-top: 1rem;
   font-size: 1.3rem;
   display: flex;
+  width: 100%;
   flex-direction: column;
 }
 
@@ -62,7 +63,7 @@
 
 .perfil-data {
   font-size: 1rem;
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .row-line-edit {
@@ -75,4 +76,20 @@
   font-size: 1.3rem;
   border-bottom: 1px solid var(--cor-verde);
   background-color: transparent;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  position: relative;
+  color: #000000;
+  border-bottom: 1px solid var(--cor-verde);
+  cursor: pointer;
+}
+
+.custom-file-upload input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload:hover {
+  background-color: #00000020;
 }

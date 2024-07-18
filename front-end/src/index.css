@@ -21,6 +21,8 @@ a,
 input[type="submit"] {
   cursor: pointer;
   outline: none;
+  text-decoration: none;
+  color: #000;
 }
 
 ::-webkit-scrollbar {

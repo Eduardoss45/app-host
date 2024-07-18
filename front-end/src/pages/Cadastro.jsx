@@ -1,14 +1,23 @@
-import { useState } from "react";
 import useCadastro from "../hooks/useCadastro"; // Importa o hook de cadastro
+import { Link } from "react-router-dom";
+
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 import "./Cadastro.css";
 
-const Cadastro = () => {
+const Cadastro = ({ resetPage }) => {
   const { formData, loading, error, success, handleChange, handleSubmit } =
     useCadastro("http://localhost:8000/register/");
 
   return (
     <div id="page-row">
+      <div id="left-arrow">
+        <Link to="/" onClick={resetPage}>
+          <span>
+            <FaArrowLeftLong />
+          </span>
+        </Link>
+      </div>
       <div id="page-col">
         <form onSubmit={handleSubmit}>
           <h1>Criar Conta</h1>

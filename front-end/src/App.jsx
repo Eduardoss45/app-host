@@ -4,15 +4,14 @@ import Cadastro from "./pages/Cadastro";
 import Favoritos from "./pages/Favoritos";
 import Reservas from "./pages/Reservas";
 import Acomodacao from "./pages/Acomodacao";
+import EditorDePerfil from "./pages/EditorDePerfil";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import useData from "./hooks/useData";
 
 function App() {
-  const { data, loading, error } = useData(
-    "#"
-  );
+  const { data, loading, error } = useData("#");
   const accommodations = data && data.accommodations ? data.accommodations : [];
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -40,6 +39,7 @@ function App() {
               path="/"
               element={<Home accommodations={filteredAccommodations} />}
             />
+            <Route path="/perfil" element={<EditorDePerfil />} />
             <Route path="/cadastro" element={<Cadastro />} />
             <Route path="/favoritos" element={<Favoritos />} />
             <Route path="/reservas" element={<Reservas />} />

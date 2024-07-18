@@ -29,8 +29,6 @@ class UserCreate(generics.CreateAPIView):
     permission_classes = (AllowAny,)
 
 
-# views.py
-
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import MyTokenObtainPairSerializer
 from rest_framework.response import Response

@@ -2,12 +2,18 @@ import { Link } from "react-router-dom";
 
 import "./MenuFlutuante.css";
 
-const MenuFlutuante = ({ onLoginClick, onCadastroClick, isAuthenticated, onLogout }) => {
+const MenuFlutuante = ({
+  onLoginClick,
+  onCadastroClick,
+  isAuthenticated,
+  onLogout,
+}) => {
+
   return (
     <div id="menu-flutuante">
       {isAuthenticated && (
         <>
-          <Link to="/">
+          <Link to="/favoritos">
             <button onClick={onLoginClick}>Favoritos</button>
           </Link>
           <div id="menu-line"></div>

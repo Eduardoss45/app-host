@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { CiMenuBurger } from "react-icons/ci";
@@ -17,40 +17,42 @@ const Navbar = ({ onSearch }) => {
   const [isLoginPainelVisible, setIsLoginPainelVisible] = useState(false);
   const [isSearchbarVisible, setIsSearchbarVisible] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        const decodedToken = jwtDecode(token);
-        const currentTime = Date.now() / 1000;
+    checkAuth();
+    resetPage();
+  }, [location.pathname]);
 
-        if (decodedToken.exp < currentTime) {
-          try {
-            const response = await axios.post(
-              "http://localhost:8000/token/refresh/",
-              {
-                refresh: localStorage.getItem(`"${refreshToken}"`),
-              }
-            );
-            console.log("Access Token:", localStorage.getItem("token"));
-            console.log("Refresh Token:", localStorage.getItem("refreshToken"));
-            localStorage.setItem("token", response.data.access);
-            setIsAuthenticated(true);
-          } catch (error) {
-            console.log("Erro ao renovar token:", error);
-            setIsAuthenticated(false);
-          }
-        } else {
+  const checkAuth = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+
+      if (decodedToken.exp < currentTime) {
+        try {
+          const response = await axios.post(
+            "http://localhost:8000/token/refresh/",
+            {
+              refresh: localStorage.getItem("refreshToken"),
+            }
+          );
+          console.log("Access Token:", localStorage.getItem("token"));
+          console.log("Refresh Token:", localStorage.getItem("refreshToken"));
+          localStorage.setItem("token", response.data.access);
           setIsAuthenticated(true);
+        } catch (error) {
+          console.log("Erro ao renovar token:", error);
+          setIsAuthenticated(false);
         }
       } else {
-        setIsAuthenticated(false);
+        setIsAuthenticated(true);
       }
-    };
-
-    checkAuth();
-  }, []);
+    } else {
+      setIsAuthenticated(false);
+    }
+  };
 
   const toggleMenu = () => {
     setIsMenuVisible((prev) => !prev);
@@ -79,12 +81,13 @@ const Navbar = ({ onSearch }) => {
   };
 
   const resetPage = () => {
-    setIsSearchbarVisible(true);
+    setIsSearchbarVisible(location.pathname === "/");
     setIsLoginPainelVisible(false);
   };
 
   const handleLoginSuccess = () => {
     setIsAuthenticated(true);
+    resetPage();
   };
 
   const handleLogout = () => {
@@ -97,7 +100,7 @@ const Navbar = ({ onSearch }) => {
     <>
       <header>
         <div id="top-row">
-          <Link to="/" onClick={resetPage}>
+          <Link to="/">
             <img id="logo" src={logo} alt="logo da apphost" />
           </Link>
           <nav id="nav-btn">

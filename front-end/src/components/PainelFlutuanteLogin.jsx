@@ -25,6 +25,12 @@ const PainelFlutuanteLogin = ({
 
       localStorage.setItem("token", response.data.access);
       localStorage.setItem("refreshToken", response.data.refresh);
+      localStorage.setItem("userId", response.data.user.id);
+
+      console.log("Access Token:", localStorage.getItem("token"));
+      console.log("Refresh Token:", localStorage.getItem("refreshToken"));
+      console.log("User ID:", localStorage.getItem("userId"));
+
       onLoginSuccess();
       closeLoginPainel();
     } catch (err) {

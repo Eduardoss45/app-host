@@ -24,7 +24,12 @@ from rest_framework import routers
 from rest_framework_simplejwt.views import TokenRefreshView
 
 from apphost.api import viewsets as accommodationsviewsets
-from apphost.api.viewsets import UserCreate, MyTokenObtainPairView, UserUpdate
+from apphost.api.viewsets import (
+    UserCreate,
+    MyTokenObtainPairView,
+    UserUpdate,
+    UserDetailView,
+)
 
 route = routers.DefaultRouter()
 
@@ -39,6 +44,7 @@ urlpatterns = [
     path("token/", MyTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view()),
     path("register/", UserCreate.as_view(), name="user-register"),
-    path("user/update/", UserUpdate.as_view(), name="user-update"),
+    path("user/<uuid:id_user>/", UserDetailView.as_view(), name="user-detail"),
+    path("user/update/<uuid:id_user>/", UserUpdate.as_view(), name="user-update"),
     path("", include(route.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

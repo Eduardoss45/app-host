@@ -38,9 +38,12 @@ const Navbar = ({ onSearch }) => {
               refresh: localStorage.getItem("refreshToken"),
             }
           );
-          console.log("Access Token:", localStorage.getItem("token"));
-          console.log("Refresh Token:", localStorage.getItem("refreshToken"));
           localStorage.setItem("token", response.data.access);
+          localStorage.setItem("refreshToken", response.data.refresh);
+
+          console.log("Refresh Token:", localStorage.getItem("refreshToken"));
+          console.log("Access Token:", localStorage.getItem("token"));
+          
           setIsAuthenticated(true);
         } catch (error) {
           console.log("Erro ao renovar token:", error);
@@ -93,6 +96,7 @@ const Navbar = ({ onSearch }) => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
+    localStorage.removeItem("userId");
     setIsAuthenticated(false);
   };
 

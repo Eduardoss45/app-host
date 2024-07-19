@@ -1,5 +1,3 @@
-# Django settings for apphost project.
-
 import os
 from pathlib import Path
 
@@ -54,7 +52,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "apphost.wsgi.application"
 
-# Database
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -62,7 +60,7 @@ DATABASES = {
     }
 }
 
-# Password validation
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -78,24 +76,25 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Rest Framework settings with JWT Authentication
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
 }
 
-# Simple JWT settings
+
 SIMPLE_JWT = {
-    "AUTH_HEADER_TYPES": ("JWT",),
-    "USER_ID_FIELD": "email",  # Define o campo a ser usado como identificador (email neste caso)
-    "USER_ID_CLAIM": "email",  # Reivindicação do campo de identificação do usuário
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    "ROTATE_REFRESH_TOKENS": True,
+    "USER_ID_FIELD": "email",
+    "USER_ID_CLAIM": "email",
 }
 
-# Custom user model
+
 AUTH_USER_MODEL = "data.User"
 
-# Internationalization
+
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -104,17 +103,17 @@ USE_I18N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+
 STATIC_URL = "/static/"
 
-# Media files (uploads)
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-# CORS settings
+
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Add your React frontend address here
+    "http://localhost:5173",
 ]
 
-# Set to True to allow all origins (use with caution, especially in production)
+
 CORS_ALLOW_ALL_ORIGINS = False

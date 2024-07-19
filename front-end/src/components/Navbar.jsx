@@ -11,21 +11,35 @@ import "./Navbar.css";
 import MenuFlutuante from "./MenuFlutuante";
 import SearchBar from "./SearchBar";
 import PainelFlutuanteLogin from "./PainelFlutuanteLogin";
+import useUserData from "../hooks/useUserData";
 
 const Navbar = ({ onSearch }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const [isLoginPainelVisible, setIsLoginPainelVisible] = useState(false);
+  const [isLoginPanelVisible, setIsLoginPainelVisible] = useState(false);
   const [isSearchbarVisible, setIsSearchbarVisible] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [profilePicture, setProfilePicture] = useState("");
   const location = useLocation();
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+
+  const { data: userData, error: userError } = useUserData(userId, token);
 
   useEffect(() => {
     checkAuth();
     resetPage();
   }, [location.pathname]);
 
+  useEffect(() => {
+    if (userData) {
+      setProfilePicture(userData.profile_picture || "");
+    }
+  }, [userData]);
+
   const checkAuth = async () => {
     const token = localStorage.getItem("token");
+    const refreshToken = localStorage.getItem("refreshToken");
+
     if (token) {
       const decodedToken = jwtDecode(token);
       const currentTime = Date.now() / 1000;
@@ -34,19 +48,13 @@ const Navbar = ({ onSearch }) => {
         try {
           const response = await axios.post(
             "http://localhost:8000/token/refresh/",
-            {
-              refresh: localStorage.getItem("refreshToken"),
-            }
+            { refresh: refreshToken }
           );
           localStorage.setItem("token", response.data.access);
           localStorage.setItem("refreshToken", response.data.refresh);
-
-          console.log("Refresh Token:", localStorage.getItem("refreshToken"));
-          console.log("Access Token:", localStorage.getItem("token"));
-          
           setIsAuthenticated(true);
         } catch (error) {
-          console.log("Erro ao renovar token:", error);
+          console.error("Erro ao renovar token:", error);
           setIsAuthenticated(false);
         }
       } else {
@@ -57,9 +65,7 @@ const Navbar = ({ onSearch }) => {
     }
   };
 
-  const toggleMenu = () => {
-    setIsMenuVisible((prev) => !prev);
-  };
+  const toggleMenu = () => setIsMenuVisible((prev) => !prev);
 
   const handleLoginClick = () => {
     setIsLoginPainelVisible(true);
@@ -73,7 +79,7 @@ const Navbar = ({ onSearch }) => {
     setIsSearchbarVisible(false);
   };
 
-  const closeLoginPainel = () => {
+  const closeLoginPanel = () => {
     setIsLoginPainelVisible(false);
     setIsSearchbarVisible(true);
   };
@@ -98,6 +104,7 @@ const Navbar = ({ onSearch }) => {
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("userId");
     setIsAuthenticated(false);
+    setProfilePicture(""); // Limpar a foto de perfil ao sair
   };
 
   return (
@@ -126,7 +133,21 @@ const Navbar = ({ onSearch }) => {
                   <CiMenuBurger />
                 </span>
                 <span id="user">
-                  <FaUserCircle />
+                  {isAuthenticated ? (
+                    profilePicture ? (
+                      <div id="profile">
+                        <img
+                          src={profilePicture}
+                          alt="Profile"
+                          id="profile-picture"
+                        />
+                      </div>
+                    ) : (
+                      <FaUserCircle />
+                    )
+                  ) : (
+                    <FaUserCircle />
+                  )}
                 </span>
               </button>
               {isMenuVisible && (
@@ -146,11 +167,11 @@ const Navbar = ({ onSearch }) => {
           </div>
         )}
       </header>
-      {isLoginPainelVisible && (
+      {isLoginPanelVisible && (
         <>
-          <div className="backdrop" onClick={closeLoginPainel}></div>
+          <div className="backdrop" onClick={closeLoginPanel}></div>
           <PainelFlutuanteLogin
-            closeLoginPainel={closeLoginPainel}
+            closeLoginPanel={closeLoginPanel}
             openCadastro={openCadastro}
             onLoginSuccess={handleLoginSuccess}
           />

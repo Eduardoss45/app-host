@@ -8,10 +8,10 @@ import EditorDePerfil from "./pages/EditorDePerfil";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
-import useData from "./hooks/useData";
+import useUserData from "./hooks/useUserData";
 
 function App() {
-  const { data, loading, error } = useData("#");
+  const { data, loading, error } = "#";
   const accommodations = data && data.accommodations ? data.accommodations : [];
   const [searchTerm, setSearchTerm] = useState("");
 

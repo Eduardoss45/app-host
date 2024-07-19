@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-
 import { IoMdClose } from "react-icons/io";
 
 import "./PainelFlutuanteLogin.css";
 
 const PainelFlutuanteLogin = ({
-  closeLoginPainel,
+  closeLoginPanel, // Alterado aqui
   onLoginSuccess,
   openCadastro,
 }) => {
@@ -32,7 +31,7 @@ const PainelFlutuanteLogin = ({
       console.log("User ID:", localStorage.getItem("userId"));
 
       onLoginSuccess();
-      closeLoginPainel();
+      closeLoginPanel(); // Alterado aqui
     } catch (err) {
       setError("Credenciais inválidas");
     }
@@ -42,7 +41,11 @@ const PainelFlutuanteLogin = ({
     <div id="painel-flutuante">
       <div id="painel-login">
         <div id="top-painel">
-          <IoMdClose onClick={closeLoginPainel} />
+          <span onClick={closeLoginPanel}>
+            {" "}
+            {/* Alterado aqui */}
+            <IoMdClose />
+          </span>
           Entrar ou Cadastrar-se
         </div>
         <div id="form-login">

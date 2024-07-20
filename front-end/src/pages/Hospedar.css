@@ -1,0 +1,62 @@
+#hospedar {
+  padding: 3rem;
+}
+
+#menu-hospedar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#menu-hospedar-rotas {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#rota-saida {
+  font-size: 2.5rem;
+}
+
+#rotas-aninhadas {
+  margin: 0 auto;
+  display: flex;
+  gap: 4rem;
+}
+
+#rotas-aninhadas button {
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+}
+
+#hospedar-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#menu-hospedar-rotas > span > a,
+#rotas-aninhadas > a > button > span,
+#hospedar-info > h1,
+#hospedar-info > span > a > svg {
+  color: var(--cor-verde);
+}
+
+#hospedar-info h1 {
+  font-size: 3rem;
+  font-weight: 400;
+}
+
+#hospedar-info span {
+  font-size: 4rem;
+}
+
+#hospedar-info > span > a {
+  display: flex;
+}
+
+.active {
+  border-bottom: 1px solid black;
+}

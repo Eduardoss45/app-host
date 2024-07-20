@@ -1,14 +1,18 @@
-import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
 import Cadastro from "./pages/Cadastro";
 import Favoritos from "./pages/Favoritos";
 import Reservas from "./pages/Reservas";
 import Acomodacao from "./pages/Acomodacao";
+import Anuncio from "./components/Anuncio";
 import EditorDePerfil from "./pages/EditorDePerfil";
+import Hospedar from "./pages/Hospedar";
+import CadastroAcomodacoes from "./pages/CadastroAcomodacoes";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
 import useUserData from "./hooks/useUserData";
+import { useState } from "react";
+import RegistroReservas from "./components/RegistroReservas";
 
 function App() {
   const { data, loading, error } = "#";
@@ -43,7 +47,15 @@ function App() {
             <Route path="/cadastro" element={<Cadastro />} />
             <Route path="/favoritos" element={<Favoritos />} />
             <Route path="/reservas" element={<Reservas />} />
-            <Route path="/acomodacoes" element={<Acomodacao />} />
+            <Route path="/acomodacao" element={<Acomodacao />} />
+            <Route path="/hospedar" element={<Hospedar />}>
+              <Route path="anuncio" element={<Anuncio />} />
+              <Route path="registro" element={<RegistroReservas />} />
+            </Route>
+            <Route
+              path="/cadastro/acomodacoes"
+              element={<CadastroAcomodacoes />}
+            />
           </Routes>
         )}
       </BrowserRouter>

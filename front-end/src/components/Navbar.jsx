@@ -115,18 +115,22 @@ const Navbar = ({ onSearch }) => {
             <img id="logo" src={logo} alt="logo da apphost" />
           </Link>
           <nav id="nav-btn">
-            <button className="btn navegacao">
-              <span>
-                <MdHotel />
-                Reservas
-              </span>
-            </button>
-            <button className="btn navegacao">
-              <span>
-                <FaHotel />
-                Hospedar
-              </span>
-            </button>
+            <Link to="reservas/">
+              <button className="btn navegacao">
+                <span>
+                  <MdHotel />
+                  Reservas
+                </span>
+              </button>
+            </Link>
+            <Link to="/hospedar/anuncio">
+              <button className="btn navegacao">
+                <span>
+                  <FaHotel />
+                  Hospedar
+                </span>
+              </button>
+            </Link>
             <div id="box-relativo">
               <button className="btn menu" onClick={toggleMenu}>
                 <span id="hanb">

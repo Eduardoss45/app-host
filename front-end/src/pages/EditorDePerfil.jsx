@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import useEdit from "../hooks/useEdit";
@@ -36,11 +36,14 @@ const EditorDePerfil = ({ handleReset }) => {
 
     const form = new FormData();
     for (const [key, value] of Object.entries(formData)) {
+      if (key === "profile_picture" && typeof value === "string") {
+        continue;
+      }
       form.append(key, value);
     }
 
     try {
-      await editUser(form); // Envie o FormData diretamente
+      await editUser(form);
       if (success) {
         alert("Dados atualizados com sucesso!");
       }

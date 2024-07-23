@@ -1,0 +1,33 @@
+#userform-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 3rem;
+}
+
+#btn-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#btn-organization {
+  display: flex;
+}
+
+#userform-box-input {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.userform-inputs {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cont-form {
+    display: flex;
+    gap: 1rem;
+}

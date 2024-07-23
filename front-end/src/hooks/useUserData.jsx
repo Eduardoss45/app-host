@@ -19,6 +19,7 @@ function useUserData(userId, token) {
           `http://localhost:8000/user/${userId}/`,
           {
             headers: {
+              "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
             },
           }

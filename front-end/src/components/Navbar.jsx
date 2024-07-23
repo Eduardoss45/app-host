@@ -53,6 +53,10 @@ const Navbar = ({ onSearch }) => {
           localStorage.setItem("token", response.data.access);
           localStorage.setItem("refreshToken", response.data.refresh);
           setIsAuthenticated(true);
+
+          console.log(localStorage.getItem("token"));
+          console.log(localStorage.getItem("refreshToken"));
+
         } catch (error) {
           console.error("Erro ao renovar token:", error);
           setIsAuthenticated(false);

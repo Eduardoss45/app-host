@@ -44,6 +44,11 @@ class UserUpdateSerializer(serializers.ModelSerializer):
             "profile_picture",
             "emergency_contact",
         ]
+        extra_kwargs = {
+            "profile_picture": {
+                "required": False
+            },
+        }
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):

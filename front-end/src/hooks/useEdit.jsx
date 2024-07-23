@@ -38,16 +38,16 @@ const useEdit = (userId, token) => {
     }
 
     try {
-      await axios.put(
+      const response = await axios.put(
         `http://localhost:8000/user/update/${userId}/`,
         updatedData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
           },
         }
       );
+      setFormData(response.data);
       setSuccess(true);
     } catch (err) {
       setError(err);

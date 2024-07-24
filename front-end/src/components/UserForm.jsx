@@ -25,7 +25,9 @@ const UserForm = () => {
 
   return (
     <div id="userform-box">
-      <h1>Qual das seguintes opções descreve melhor seu espaço?</h1>
+      <h1>
+        Qual das seguintes opções descreve melhor <br /> seu espaço?
+      </h1>
       <div id="btn-form">
         <div id="btn-organization">
           {labels.map((label, index) => (
@@ -35,20 +37,23 @@ const UserForm = () => {
         <h2>Adicione informações básicas</h2>
         <div id="userform-box-input">
           {values.map((value, index) => (
-            <div key={index} className="userform-inputs">
-              <div>
-                <label>{value}</label>
+            <>
+              <div key={index} className="userform-inputs">
+                <div>
+                  <label>{value}</label>
+                </div>
+                <div className="cont-form">
+                  <span onClick={decrement}>
+                    <FaMinus />
+                  </span>
+                  <p>{count}</p>
+                  <span onClick={increment}>
+                    <FaPlus />
+                  </span>
+                </div>
               </div>
-              <div className="cont-form">
-                <span onClick={decrement}>
-                  <FaMinus />
-                </span>
-                <p>{count}</p>
-                <span onClick={increment}>
-                  <FaPlus />
-                </span>
-              </div>
-            </div>
+              <div className="userform-line"></div>
+            </>
           ))}
         </div>
       </div>

@@ -1,6 +1,6 @@
-import "./Descriptions.css";
+import "./Step1.css";
 
-const Descriptions = () => {
+const Step1 = () => {
   return (
     <div id="description-box">
       <h1>Anuncie com facilidade com a App Host</h1>
@@ -26,4 +26,4 @@ const Descriptions = () => {
   );
 };
 
-export default Descriptions;
+export default Step1;

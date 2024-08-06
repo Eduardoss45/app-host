@@ -1,0 +1,43 @@
+#step-third {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#step-third h1 {
+  text-align: center;
+  font-size: 3rem;
+  color: var(--cor-verde);
+  font-weight: 400;
+  width: 75%;
+}
+
+#step-third h2 {
+  font-size: 1.8rem;
+  font-weight: 400;
+  width: 75%;
+}
+
+#step-third p {
+  font-size: 1.2rem;
+  color: var(--cor-verde);
+}
+
+#step-third > div > div {
+  border: 1px solid var(--cor-verde);
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+  margin: 3rem 2rem;
+}
+
+.step-third-opt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.step-third-opt > span {
+  font-size: 3rem;
+  color: var(--cor-verde);
+}

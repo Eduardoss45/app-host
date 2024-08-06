@@ -1,0 +1,27 @@
+#step-four {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#step-four > div {
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+#step-four h1 {
+  font-size: 2.7rem;
+  font-weight: 400;
+  color: var(--cor-verde);
+}
+
+#step-four > div > div > input {
+  padding: 1rem 10rem 1rem 1rem;
+  background-color: transparent;
+  color: var(--cor-verde);
+  border: 1px solid var(--cor-verde);
+  border-radius: 1rem;
+  font-size: 1.5rem;
+}

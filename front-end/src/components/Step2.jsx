@@ -7,9 +7,9 @@ import { FaMinus, FaPlus } from "react-icons/fa";
 
 import CustomButton from "./CustomButton";
 
-import "./UserForm.css";
+import "./Step2.css";
 
-const UserForm = () => {
+const Step2 = () => {
   const labels = ["Pousada", "Chalé", "Apto", "Casa", "Quarto"];
   const values = ["Quartos", "Camas", "Banheiro", "Hóspedes acomodados"];
   const icons = [
@@ -61,4 +61,4 @@ const UserForm = () => {
   );
 };
 
-export default UserForm;
+export default Step2;

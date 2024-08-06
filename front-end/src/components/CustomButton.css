@@ -1,7 +1,7 @@
 .btn-form-custom {
   cursor: pointer;
   border: 1px solid var(--cor-verde);
-  padding: 1rem 4rem 1rem 1rem;
+  padding: 1rem 4rem .5rem 1rem;
   border-radius: 10px;
   display: flex;
   justify-content: start;
@@ -11,6 +11,7 @@
 
 .btn-form-custom > span {
   color: var(--cor-verde);
+  width: 100px;
 }
 
 .btn-form-custom > span > svg {
